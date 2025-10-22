@@ -2,7 +2,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import numpy as np
 
-model = load_model("Potato_model_v1.h5")
+model = load_model("./server/Potato_model_v1.h5")
 class_names = ["Early Blight","Late Blight","Healthy"]
 
 def prepare_image(img_path,target_size=(256,256)):

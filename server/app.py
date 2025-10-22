@@ -7,7 +7,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load model
-model = load_model("Potato_model_v1.h5")
+model = load_model("Potato_model_v2.h5")
 class_names = ["Early Blight", "Late Blight", "Healthy"]
 
 def prepare_image(img, target_size=(256,256)):
