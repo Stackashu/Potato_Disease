@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from PIL import Image
@@ -7,6 +8,15 @@ import numpy as np
 import uvicorn
 
 app = FastAPI()
+
+# CORS FIX
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Or put your frontend domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Load model
 model = load_model("Potato_model_v2.h5")
