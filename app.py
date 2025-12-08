@@ -18,6 +18,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Health Check Route
+@app.get("/")
+def health_check():
+    return {"status": "ok", "message": "Potato disease API is running"}
+
 # Load model
 model = load_model("Potato_model_v2.h5")
 class_names = ["Early Blight", "Late Blight", "Healthy"]
@@ -36,10 +41,12 @@ async def predict(file: UploadFile = File(...)):
         img = Image.open(file.file)
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid image file")
+
     img_array = prepare_image(img)
     pred = model.predict(img_array)
     pred_class = class_names[np.argmax(pred[0])]
-    confidence = round(100*np.max(pred[0]), 2)
+    confidence = round(100 * np.max(pred[0]), 2)
+
     return JSONResponse(content={"prediction": pred_class, "confidence": confidence})
 
 if __name__ == "__main__":
